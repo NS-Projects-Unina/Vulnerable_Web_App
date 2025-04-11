@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifica Profilo - {{ user['username'] }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9e0e7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #5a2a7a;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        input:focus {
+            border-color: #3f84f0;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #3f84f0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3579e6;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #5a2a7a;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            color: green;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Modifica il profilo di {{ user['username'] }}</h2>
+
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
+
+        <form method="POST">
+            <label>NickName:</label>
+            <input type="text" name="nickname" value="{{ user['username'] }}">
+
+            <label>Email:</label>
+            <input type="email" name="email" value="{{ user['username'] }}@example.com">
+
+            <label>Address:</label>
+            <input type="text" name="address" value="">
+
+            <label>Phone Number:</label>
+            <input type="text" name="phone" value="">
+
+
+            <label>Password:</label>
+            <input type="text" name="password" value="{{ user['password'] }}">
+
+            <button type="submit">Salva</button>
+        </form>
+
+        <footer>
+            <p><a href="/">Torna al login</a></p>
+        </footer>
+    </div>
+
+</body>
+</html>

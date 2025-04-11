@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWT Auth Challenge</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h2 {
+            text-align: center;
+            color: #5a2a7a;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 80%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #3f84f0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3579e6;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        hr {
+            margin: 20px 0;
+            border: 0;
+            border-top: 1px solid #ddd;
+        }
+
+        small {
+            display: block;
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>JWT Auth Demo</h2>
+        <p>Fai login come <b>guest</b> per ottenere un token JWT.</p>
+
+        <form action="/login" method="POST">
+            <label for="username">Username:</label>
+            <input name="username" value="guest" type="text" required>
+
+            <input type="submit" value="Login">
+        </form>
+
+        <p>Dopo aver ottenuto il token, usalo per accedere alla route <code>/admin</code>.</p>
+        <p>Includilo in un header <code>Authorization: Bearer &lt;token&gt;</code>.</p>
+
+        <a href="http://127.0.0.1:5000/dashboard" class="button">Torna alla Dashboard</a>
+
+        <hr>
+        <small>Hint: il segreto usato per firmare i JWT è molto debole...</small>
+    </div>
+
+</body>
+</html>

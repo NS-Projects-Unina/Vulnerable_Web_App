@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilo - {{ user['username'] }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7e2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #5a2a7a;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5e1f3;
+            color: #5a2a7a;
+        }
+
+        td {
+            background-color: #fafafa;
+        }
+
+        a {
+            color: #42a8d6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #5a2a7a;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .profile-table {
+            margin-top: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-table hr {
+            margin-top: 20px;
+            border: 0;
+            border-top: 1px solid #ddd;
+        }
+
+        .profile-header {
+            color: #5a2a7a;
+            margin-top: 20px;
+            font-size: 22px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Benvenuto nel profilo di {{ user['username'] }}</h2>
+
+        <p><strong>Bio:</strong> {{ profile['bio'] }}</p>
+
+        {% if user['username'] == 'bob' %}
+        <div class="profile-header">
+            <hr>
+            <h3>Profilo di Bob</h3>
+        </div>
+        <table class="profile-table">
+            <tr><th>Key</th><th>Value</th></tr>
+            <tr><td>NickName</td><td>{{ profile['nickname'] }}</td></tr>
+            <tr><td>Email</td><td>{{ profile['email'] }}</td></tr>
+            <tr><td>Address</td><td>{{ profile['address'] }}</td></tr>
+            <tr><td>Phone</td><td>{{ profile['phone'] }}</td></tr>
+            <tr><td>Birth</td><td>{{ profile['birth'] }}</td></tr>
+            <tr><td>SSN</td><td>{{ profile['ssn'] }}</td></tr>
+            <tr><td>Salary</td><td>{{ profile['salary'] }}</td></tr>
+        </table>
+        <hr>
+        {% endif %}
+
+        {% if user['username'] == 'alice' %}
+        <div class="profile-header">
+            <hr>
+            <h3>Profilo di Alice</h3>
+        </div>
+        <table class="profile-table">
+            <tr><th>Key</th><th>Value</th></tr>
+            <tr><td>Employee ID</td><td>10000</td></tr>
+            <tr><td>Salary</td><td>{{ profile['salary'] }}</td></tr>
+            <tr><td>Birth</td><td>{{ profile['birth'] }}</td></tr>
+            <tr><td>SSN</td><td>{{ profile['ssn'] }}</td></tr>
+            <tr><td>NickName</td><td>{{ profile['nickname'] }}</td></tr>
+            <tr><td>Email</td><td>{{ profile['email'] }}</td></tr>
+            <tr><td>Address</td><td>{{ profile['address'] }}</td></tr>
+            <tr><td>Phone Number</td><td>{{ profile['phone'] }}</td></tr>
+        </table>
+        <p><a href="/edit_profile/{{ user['id'] }}">Vai a modifica profilo</a></p>
+        <hr>
+        {% endif %}
+
+        <footer>
+            <p><a href="/">Vai alla pagina di login</a></p>
+        </footer>
+    </div>
+
+</body>
+</html>

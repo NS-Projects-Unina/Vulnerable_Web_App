@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Flag Trovata</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f1f6f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #4A90E2;
+            font-size: 2rem;
+        }
+
+
+        h1.flag {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #D32F2F;
+            background-color: #FFEBEE;
+            padding: 12px;
+            margin: 20px auto;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .button {
+            background-color: #4A90E2;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 15px 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .button:hover {
+            background-color: #357ABD;
+        }
+
+        .logout-link {
+            color: #4A90E2;
+            font-size: 0.95rem;
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+
+        .logout-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🏁 Flag:</h2>
+        
+
+        <h1 class="flag">
+            flag=cookie_monster
+        </h1>
+
+        <p>Copia il valore della flag per inserirla nella pagina principale e ottenere il punteggio.</p>
+
+        <a href="http://127.0.0.1:5000/dashboard" class="button">Torna alla Dashboard</a>
+
+
+        <a href="/logout" class="logout-link">🔓 Logout</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+secret.txt
+note.txt
+file.txt
+flag.txt
+example2.txt
+lista.txt
+secret_flag.txt
+sbagliato.txt
