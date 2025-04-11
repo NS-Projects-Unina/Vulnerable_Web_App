@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <header>
+        <h1>🏆 Classifica HackTivities</h1>
+        <p>I migliori hacker della piattaforma!</p>
+    </header>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Utente</th>
+                <th>Punteggio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for username, score in leaderboard %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ username }}</td>
+                <td>{{ score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+    <a href="/dashboard" class="back-btn">← Torna alla Dashboard</a>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(to bottom right, #f5ebff, #e9d8fd);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #4a148c;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 60px auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(106, 27, 154, 0.15);
+    }
+
+    header {
+        background-color: #6a1b9a;
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        color: white;
+        text-align: center;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 2rem;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        text-align: center;
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #8e24aa;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f3e5f5;
+    }
+
+    tr:hover {
+        background-color: #e1bee7;
+    }
+</style>
+{% endblock %}

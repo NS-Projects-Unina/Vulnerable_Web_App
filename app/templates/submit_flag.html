@@ -1,0 +1,125 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <header>
+        <h1>🏁 Inserisci una Flag</h1>
+        <p>Hai risolto una challenge? Inserisci la flag qui per ottenere il punteggio!</p>
+    </header>
+
+    <form id="flagForm" onsubmit="submitFlag(event)">
+        <label for="challenge">Seleziona la Challenge:</label>
+        <select id="challenge" name="challenge_id" required>
+            {% for ch in challenges %}
+            <option value="{{ ch.id }}">{{ ch.name }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="text" name="flag" id="flag" placeholder="Inserisci la flag" required>
+        <button type="submit">Invia</button>
+        <p id="flag-result" style="margin-top: 10px;"></p>
+    </form>
+
+    <!-- Bottone per tornare alla dashboard -->
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="/dashboard" class="back-btn">← Torna alla Dashboard</a>
+    </div>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(to bottom right, #f5ebff, #e9d8fd);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #4a148c;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 60px auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(106, 27, 154, 0.15);
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    header h1 {
+        color: #6a1b9a;
+        margin: 0;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    select, input {
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        background: linear-gradient(to right, #8e24aa, #6a1b9a);
+        color: white;
+        border: none;
+        padding: 12px;
+        font-size: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    button:hover {
+        background: linear-gradient(to right, #9c27b0, #7b1fa2);
+    }
+
+    .back-btn {
+        display: inline-block;
+        background-color: #6a1b9a;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s ease;
+    }
+
+    .back-btn:hover {
+        background-color: #8e24aa;
+    }
+</style>
+
+<script>
+    function submitFlag(event) {
+        event.preventDefault();
+
+        const form = document.getElementById('flagForm');
+        const challengeId = form.challenge.value;
+        const flag = form.flag.value;
+        const resultElement = document.getElementById('flag-result');
+
+        fetch(`/submit_flag/${challengeId}`, {
+            method: 'POST',
+            body: new URLSearchParams({ flag }),
+            credentials: 'same-origin'
+        })
+        .then(response => response.json())
+        .then(data => {
+            resultElement.style.color = data.success ? 'green' : 'red';
+            resultElement.innerText = data.success ? data.message : data.error;
+        })
+        .catch(error => {
+            resultElement.style.color = 'red';
+            resultElement.innerText = 'Errore durante l’invio.';
+            console.error(error);
+        });
+    }
+</script>
+{% endblock %}

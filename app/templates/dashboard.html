@@ -1,0 +1,215 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(to bottom right, #f5ebff, #e9d8fd);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #4a148c;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px 20px;
+        background-color: #6a1b9a;
+    }
+
+    .dropbtn {
+        background-color: #8e24aa;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: #f3e5f5;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+        border-radius: 8px;
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: #6a1b9a;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #e1bee7;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: #9c27b0;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(106, 27, 154, 0.2);
+    }
+
+    header {
+        background-color: #6a1b9a;
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        color: white;
+        position: relative;
+    }
+
+    header h1 {
+        font-size: 2.2rem;
+        margin: 0;
+    }
+
+    header p {
+        margin-top: 8px;
+        font-size: 1.1rem;
+        color: #f3e5f5;
+    }
+
+    header a.logout {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        position: absolute;
+        right: 25px;
+        top: 25px;
+        background-color: #8e24aa;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: 0.3s ease;
+    }
+
+    header a.logout:hover {
+        background-color: #9c27b0;
+    }
+
+    h2 {
+        color: #6a1b9a;
+        margin-top: 0;
+        text-align: center;
+    }
+
+    .challenge {
+        background-color: #f3e5f5;
+        border-left: 5px solid #ba68c8;
+        margin: 20px 0;
+        padding: 20px;
+        border-radius: 10px;
+        transition: 0.3s ease;
+    }
+
+    .challenge:hover {
+        background-color: #f3dbff;
+    }
+
+    .challenge h3 {
+        margin-top: 0;
+        color: #6a1b9a;
+    }
+
+    .challenge p {
+        margin: 5px 0;
+        color: #4a148c;
+    }
+
+    button {
+        background: linear-gradient(to right, #8e24aa, #6a1b9a);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background: linear-gradient(to right, #9c27b0, #7b1fa2);
+    }
+</style>
+
+<!-- MENU NAVIGATION -->
+<nav>
+    <div class="dropdown">
+        <button class="dropbtn">☰ Menu</button>
+        <div class="dropdown-content">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/leaderboard">Classifica</a>
+            <a href="/submit">Inserisci Flag</a>
+        </div>
+    </div>
+</nav>
+
+<!-- CONTENUTO PRINCIPALE -->
+<div class="container">
+    <header>
+        <h1>Docker Challenge Dashboard</h1>
+        <p><strong>Il tuo punteggio:</strong> <span id="user-score">{{ total_score }}</span></p>
+        <a class="logout" href="/logout">Logout</a>
+    </header>
+
+    <h2>Available Challenges</h2>
+    {% for challenge in challenges %}
+    <div class="challenge">
+        <h3>{{ challenge.name }}</h3>
+        <p>{{ challenge.description }}</p>
+        <p><strong>Difficoltà:</strong> {{ challenge.difficulty }}</p>
+        <button onclick="startChallenge({{ challenge.id }})">Inizia Challenge</button>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    function updateScore() {
+        fetch('/get_score')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('user-score').innerText = data.score;
+        });
+    }
+
+    function startChallenge(challengeId) {
+        fetch(`/start_container/${challengeId}`, {
+            method: 'POST',
+            credentials: 'same-origin'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = data.url;
+            } else {
+                alert(data.error);
+            }
+        })
+        .catch(error => console.error("Errore:", error));
+    }
+
+    window.onload = updateScore;
+</script>
+{% endblock %}

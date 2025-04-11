@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ challenge.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>{{ challenge.name }}</h1>
+        <a href="{{ url_for('main.dashboard') }}">🏠 Torna alla Dashboard</a>
+    </header>
+
+    <section>
+        <h2>Descrizione</h2>
+        <p>{{ challenge.description }}</p>
+    </section>
+
+    <section>
+        <h2>Dettagli</h2>
+        <ul>
+            <li><strong>Categoria:</strong> {{ challenge.category }}</li>
+            <li><strong>Punti:</strong> {{ challenge.points }}</li>
+            <li><strong>Indirizzo Container:</strong> <a href="http://localhost:{{ challenge.port }}" target="_blank">Accedi alla Challenge</a></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Invia Flag</h2>
+        <form id="flag-form">
+            <input type="text" id="flag" placeholder="Inserisci la flag">
+            <button type="submit">Invia</button>
+        </form>
+        <p id="response-message"></p>
+    </section>
+
+    <script>
+        document.getElementById("flag-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const flag = document.getElementById("flag").value;
+
+            fetch("/submit_flag/{{ challenge.id }}", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ flag: flag })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("response-message").innerText = data.message;
+            });
+        });
+    </script>
+</body>
+</html>
