@@ -18,6 +18,5 @@ pip install -r requirements.txt
 Poi bisogna spostarsi in ongi cartella presente in docker_files (cd docker_files/challenge*) e buildare l'immagine della relativa challenge con il comando :
 docker build -t challenge1_image.
 Il procedimento va ripetuto per tutte le altre challenge, cambiando directory e l'immagine che sarà sempre ChallengeX_image. (X = numero della challenge)
- 
-Poi bisogna ritornare alla directory contenente il progetto e  avviare l'app con :
+Infine, bisogna ritornare alla directory contenente il progetto e  avviare l'app con :
 python3 run.py
